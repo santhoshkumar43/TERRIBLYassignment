@@ -1,0 +1,26 @@
+.Landing-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+    color: wheat;
+}
+.Land-sub-button{
+    border-radius: 10px;
+    height: 100px;
+    width: 250px;
+    border: 0px;
+    box-shadow: 5px 8px 200px   rgb(80, 80, 80);
+}
+.Land-sub-button p{
+    margin: 0px;
+    font-weight: bold;
+    font-size: 40px;
+}
+.Land-sub-button:hover{
+    cursor: pointer;
+    scale: 1.1;
+    transition: 0.7s;
+}
