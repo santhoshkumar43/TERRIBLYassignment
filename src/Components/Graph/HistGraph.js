@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler, BarController } from 'chart.js';
 import { useState, useEffect } from "react";
-import { Chart,BarElement, ArcElement, registerables } from 'chart.js'
-Chart.register( BarElement);
+import { Chart, BarElement, ArcElement, registerables } from 'chart.js'
+Chart.register(BarElement);
 ChartJS.register(
 
     Title, Tooltip, LineElement, Legend,
@@ -19,43 +19,45 @@ function HistGraph({ data }) {
     const [del, setdel] = useState([]);
     const [timdel, settimdel] = useState([]);
     const [chartdata, setChartdata] = useState({
-        labels:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        labels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         datasets: [
             {
-                label:"word count",
-                data:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                borderColor: '#E9A0A0',
-                tension: 0.4,
-                pointBackgroundColor: '#E9A0A0',
-                showLine: true
+                label: "word count",
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
             }
 
         ]
 
     });
-    useEffect(()=>{
-        setdel(data.slice(0,20));
-    },[data])
+    useEffect(() => {
+        setdel(data.slice(0, 20));
+    }, [data])
 
     useEffect(() => {
+        const labels = del.map(i => i[0]);
         setChartdata({
-            labels: del.map(i=> i[0]),
+            labels,
             datasets: [
                 {
-                    label: "jhbrbhh",
-                    data: del.map(i=> i[1]),
-                    borderColor: '#E9A0A0',
-                    tension: 0.4,
-                    pointBackgroundColor: '#E9A0A0',
-                    showLine: true
+                    label: "Word Frequency",
+                    data: del.map(i => i[1]),
+                    borderwidth: 1,
+                    barPercentage: 1,
+                    categoryPercentage: 1,
+                    backgroundColor: labels.map((label, index) =>
+                        index % 2 === 0 ? '#EDC126' : '#E5D68A',)
+
                 }
 
 
-            ]
+            ],
+
+
 
         });
     }, [del])
-    
+
     const options = {
         maintainAspectRatio: false,
         plugins: {
@@ -73,24 +75,26 @@ function HistGraph({ data }) {
 
         scales: {
             x: {
-                grid: {
-                    display: false
-                },
-
-            }
-        }
+                beginAtZero: true,
+                maxBarThickness: 50,
+            },
+            y: {
+                beginAtZero: true,
+            },
+        },
     }
 
 
     return (
-        <div>
-            <h1>Terribly Tiny Tales</h1>
-           <div>
-           <Bar data={chartdata} options={options}></Bar>
-           </div>
-           
+        <div className="maingrp">
             
-            
+
+            <div className="grphist">
+                <Bar data={chartdata} options={options}></Bar>
+            </div>
+
+
+
         </div>
     )
 }

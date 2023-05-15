@@ -29,11 +29,6 @@ function Histogram() {
 
 
 
-
-
-
-
-
     useEffect(() => {
         generateHistogramData();
     }, [])
@@ -41,14 +36,21 @@ function Histogram() {
 
     return (
         <div className="mainhist">
-            <div>
+            <h1> Terribly Tiny Tales </h1>
+
+            <div >
                 <HistGraph data={histogramData} />
+            </div>
+            <div className="expbtn">
+
+                <button onClick={() => downloadCsv(histogramData)}>Export</button>
             </div>
 
             <div className="tablewords">
+                <h3>List of words and count</h3>
                 <table>
-                    <th>new one</th>
-                    <th>hello</th>
+                    <th>Words</th>
+                    <th>Count</th>
 
                     {histogramData.map((item) => <tr>
                         <td>{item[0]}</td>
@@ -61,5 +63,21 @@ function Histogram() {
 
         </div>
     )
+}
+function downloadCsv(data) {
+    console.log(data)
+    const csv = [
+        ["Word", "Count"],
+        ...data.map((item) => [item[0], item[1]])
+    ]
+        .map((row) => row.join(","))
+        .slice(0,21)
+        .join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "histogram.csv";
+    link.click();
 }
 export default Histogram;
