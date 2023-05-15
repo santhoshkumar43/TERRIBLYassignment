@@ -1,4 +1,5 @@
 import React from "react";
+import "./HistGraph.css"
 import { useRef } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler, BarController } from 'chart.js';
@@ -34,7 +35,7 @@ function HistGraph({ data }) {
     });
     useEffect(()=>{
         setdel(data.slice(0,20))
-    })
+    },[data])
 
     
 
@@ -52,24 +53,13 @@ function HistGraph({ data }) {
                     pointBackgroundColor: '#E9A0A0',
                     showLine: true
                 }
-                // , {
-                //     label: "new Delhi",
-                //     data: del,
 
-                //     borderColor: '#9BDD7C',
-                //     tension: 0.4,
-
-
-                //     pointBorderColor: '#9BDD7C',
-                //     pointBackgroundColor: '#9BDD7C',
-                //     showLine: true
-                // },
 
             ]
 
         });
     }, [data])
-    console.log(data)
+    
     const options = {
         maintainAspectRatio: false,
         plugins: {
@@ -98,6 +88,7 @@ function HistGraph({ data }) {
 
     return (
         <div>
+            <h1>Terribly Tiny Tales</h1>
            <div>
            <Bar data={chartdata} options={options}></Bar>
            </div>
