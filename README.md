@@ -2,7 +2,8 @@
 ### App.js: 
 This file serves as the entry point of the application. It contains the routes to the Landing and Histogram components.
 
-Landing Page: The Landing component displays a submit button. Upon clicking the button, the user is redirected to the Histogram component.
+### Landing Page: 
+The Landing component displays a submit button. Upon clicking the button, the user is redirected to the Histogram component.
 
 ### Histogram Component: 
 In this component, the data is fetched from the provided text link. The text is then split into words, and the frequency of each word is counted. The histogram data is set using the setHistogramData hook, which is a state variable created using useState. The component also includes a function called downloadCsv, which is responsible for generating a CSV file and downloading it.
