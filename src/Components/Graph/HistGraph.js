@@ -34,12 +34,8 @@ function HistGraph({ data }) {
 
     });
     useEffect(()=>{
-        setdel(data.slice(0,20))
+        setdel(data.slice(0,20));
     },[data])
-
-    
-
-
 
     useEffect(() => {
         setChartdata({
@@ -58,7 +54,7 @@ function HistGraph({ data }) {
             ]
 
         });
-    }, [data])
+    }, [del])
     
     const options = {
         maintainAspectRatio: false,
