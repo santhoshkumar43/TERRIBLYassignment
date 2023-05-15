@@ -1,47 +1,64 @@
 import React, { useState, useEffect } from "react";
+import HistGraph from "../Graph/HistGraph";
+import "./Histogram.css"
 
 function Histogram() {
     const [data, setData] = useState([])
-    const fetchUrl = async () => {
-
-        const res = await fetch("https://www.terriblytinytales.com/test.txt")
-        const text = await res.text();
-        const words = text.split(" ");
+    const [histogramData, setHistogramData] = useState([]);
 
 
 
-        const all = [];
-        // const counts = {};
-        // words.forEach((element) => {
-        //     if (!counts[element]) {
-        //         counts[element] = 1;
-        //     } else {
-        //         counts[element]++;
-        //     }
-        // });
-        // const result = [];
-        // for (const [element, count] of Object.entries(counts)) {
-        //     result.push({ element: parseInt(element), count });
-        // }
 
-        setData(all)
-        // console.log(result)
-        // console.log(counts)
+    const generateHistogramData = async () => {
+        const response = await fetch("https://www.terriblytinytales.com/test.txt");
+        const text = await response.text();
+        const wordFrequencies = text
+            .toLowerCase()
+            .split(/\s+/)
+            .reduce((freq, word) => {
+                freq[word] = (freq[word] || 0) + 1;
+                return freq;
+            }, {});
+
+        setData(wordFrequencies)
+        const histogramData = Object.entries(wordFrequencies)
+            .sort((a, b) => b[1] - a[1])
+
+        setHistogramData(histogramData);
+    };
 
 
 
 
 
-    }
+
+
 
     useEffect(() => {
-        fetchUrl();
+        generateHistogramData();
     }, [])
 
+
     return (
-        <div>
-            Hello World!
-            {data.map((item) => <p>{item.element}</p>)}
+        <div className="mainhist">
+            <div>
+                <HistGraph data={histogramData} />
+            </div>
+
+            <div className="tablewords">
+                <table>
+                    <th>new one</th>
+                    <th>hello</th>
+
+                    {histogramData.map((item) => <tr>
+                        <td>{item[0]}</td>
+                        <td>{item[1]}</td>
+                    </tr>)}
+
+                </table>
+            </div>
+
+
         </div>
     )
 }
