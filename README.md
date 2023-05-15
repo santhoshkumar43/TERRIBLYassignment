@@ -1,4 +1,8 @@
 ### Deploy ment Link: `https://terribly-tiny-tales-assignment.netlify.app/`
+### libreries/dependencies used:
+react-router-dom
+chart.js
+react-chartjs-2
 ### App.js: 
 This file serves as the entry point of the application. It contains the routes to the Landing and Histogram components.
 
